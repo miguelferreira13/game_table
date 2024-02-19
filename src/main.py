@@ -1,9 +1,9 @@
 from button_led_pairs import ButtonLedPairs
-from crocodile_dentist import CrocodileDentist
+import games
 from datetime import datetime
 
 GAMES_MAP = {
-    "green": CrocodileDentist(),
+    "green": games.CrocodileDentist(),
     "red": None,
     "yellow": None,
     "blue": None,

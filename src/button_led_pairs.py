@@ -112,6 +112,6 @@ class ButtonLedPairs:
         self.debounce()
         self.update_red_pressed_duration()
         if self.red_pressed_duration > 3:
-            return False
             print("Exiting...")
+            return False
         return True
