@@ -14,4 +14,4 @@ This project utilizes a Raspberry Pi to power a game table with 5 LEDs and 5 but
 1. **Wiring:**
     - Connect the LEDs and buttons to the Raspberry Pi GPIO pins according to the provided pinout or wiring diagram.
 
-![schema](schematic.png)
+![schema](images/schematic.png)
