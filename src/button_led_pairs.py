@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 from random import choice
+from logger import logger
 
 DEFAULT_DEBOUNCE_TIME = 0.1
 
@@ -49,7 +50,7 @@ class ButtonLedPairs:
         self.blue = ButtonLed(color="blue", button_pin=23, led_pin=24)
         self.white = ButtonLed(color="white", button_pin=25, led_pin=16)
         self.green = ButtonLed(color="green", button_pin=20, led_pin=21)
-        self.pairs = {
+        self.led_button_combinations = {
             "red": self.red,
             "yellow": self.yellow,
             "blue": self.blue,
@@ -60,30 +61,30 @@ class ButtonLedPairs:
         self.red_pressed_duration = 0
 
     def get_button_states(self):
-        return {color: pair.is_button_pressed() for color, pair in self.pairs.items()}
+        return {color: pair.is_button_pressed() for color, pair in self.led_button_combinations.items()}
 
     def press_buttons_leds_high(self, duration_seconds=None):
         states = self.get_button_states()
         for color, state in states.items():
             if state:
-                self.pairs[color].led_high(duration_seconds)
+                self.led_button_combinations[color].led_high(duration_seconds)
 
     def not_press_buttons_leds_low(self, duration_seconds=None):
         states = self.get_button_states()
         for color, state in states.items():
             if not state:
-                self.pairs[color].led_low(duration_seconds)
+                self.led_button_combinations[color].led_low(duration_seconds)
 
     def press_low_not_pressed_high(self, duration_seconds=None):
         self.press_buttons_leds_high(duration_seconds)
         self.not_press_buttons_leds_low(duration_seconds)
 
     def all_leds_high(self, duration_seconds=None):
-        for _, pair in self.pairs.items():
+        for _, pair in self.led_button_combinations.items():
             pair.led_high(duration_seconds)
 
     def all_leds_low(self, duration_seconds=None):
-        for _, pair in self.pairs.items():
+        for _, pair in self.led_button_combinations.items():
             pair.led_low(duration_seconds)
 
     def blink_all_leds(self, n=10, duration_seconds=0.5):
@@ -93,8 +94,8 @@ class ButtonLedPairs:
             self.all_leds_low()
             time.sleep(duration_seconds)
 
-    def get_random_color(self):
-        return choice(list(self.pairs.keys()))
+    def get_random_led(self):
+        return choice(list(self.led_button_combinations.values()))
 
     def cleanup(self):
         GPIO.cleanup()
@@ -112,6 +113,6 @@ class ButtonLedPairs:
         self.debounce()
         self.update_red_pressed_duration()
         if self.red_pressed_duration > 3:
-            print("Exiting...")
+            logger.debug("Exiting...")
             return False
         return True
