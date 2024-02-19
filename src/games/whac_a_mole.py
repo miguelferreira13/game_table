@@ -2,6 +2,7 @@ from games.base_game import BaseGame
 from button_led_pairs import ButtonLed, DEFAULT_DEBOUNCE_TIME
 import time
 from random import choice
+from typing import List
 
 LONG_PRESS_DURATION = 1
 SPEED_INCREASE_RATE = 0.04
@@ -12,7 +13,7 @@ class WhacAMole(BaseGame):
         super().__init__()
         self.name = "Whac-A-Mole"
         self.initial_speed = 1.3  # Initial speed of the game in seconds
-        self.active_players = []
+        self.active_players: List[ButtonLed] = []
         self.loser: ButtonLed = None
 
     def play(self):
@@ -23,6 +24,18 @@ class WhacAMole(BaseGame):
         previous_led = None
 
         while self.pairs.keep_running():
+            # Make sure no one is pressing the button in the beginning of the round
+            for led in self.active_players:
+                if led.is_button_pressed():
+                    if led.color == "red":  # If the red button is pressed, assume we want main menu
+                        time.sleep(0.5)  # Wait for the user to release the button
+                        if led.is_button_pressed():
+                            raise Exception("Main menu requested")
+                    self.loser = led
+                    self.defeat()
+                    self.initialize()
+                    round_number = 0
+                    break
             game_continues = False
 
             random_led: ButtonLed = choice([led for led in all_leds if led != previous_led])

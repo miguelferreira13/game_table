@@ -4,6 +4,7 @@ from random import choice
 from logger import logger
 
 DEFAULT_DEBOUNCE_TIME = 0.1
+CANCEL_PRESS_DURATION = 2.3
 
 GPIO.setmode(GPIO.BCM)
 
@@ -112,7 +113,7 @@ class ButtonLedPairs:
     def keep_running(self) -> bool:
         self.debounce()
         self.update_red_pressed_duration()
-        if self.red_pressed_duration > 3:
+        if self.red_pressed_duration > CANCEL_PRESS_DURATION:
             logger.debug("Exiting...")
             return False
         return True

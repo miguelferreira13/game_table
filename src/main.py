@@ -23,7 +23,9 @@ class MainMenu:
         self.pairs = ButtonLedPairs()
 
     def start(self):
-        time.sleep(0.5)  # Wait for the user to release the button
+        time.sleep(1)  # Wait for the user to release the button
+        self.pairs.all_leds_low()
+        self.pairs.blink_all_leds(5, 0.1)
         logger.info("Entering main menu")
         game_selected = False
         while self.pairs.keep_running() or not game_selected:
