@@ -6,15 +6,17 @@ from logger import logger
 from games import (
     base_game,
     crocodile_dentist,
-    whac_a_mole
+    whac_a_mole,
+    stef_stunt_pilot,
+    color_blind
 )
 
 GAMES_MAP = {
     "green": crocodile_dentist.CrocodileDentist(),
     "red": whac_a_mole.WhacAMole(),
-    "yellow": None,
-    "blue": None,
-    "white": None
+    "yellow": base_game.BaseGame(),
+    "blue": stef_stunt_pilot.StefStuntPilot(),
+    "white": color_blind.ColorBlind()
 }
 
 

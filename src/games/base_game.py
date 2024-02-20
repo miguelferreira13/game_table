@@ -13,7 +13,10 @@ class BaseGame:
         logger.info(f"{self.name} finished")
 
     def play(self):
-        pass
+        self.pairs.all_leds_low()
+
+        while self.pairs.keep_running():
+            self.pairs.press_low_not_pressed_high()
 
     def initialize(self):
         pass
