@@ -1,13 +1,11 @@
 import requests
 from random import choice
 import time
+from logger import logger
+from config import config
 
-colors = ['red', 'blue', 'green', 'yellow', 'white']
-# url = 'http://127.0.0.1:8080/notsober/'
-url = 'https://gametable-xolpakqy5q-ez.a.run.app/notsober/'
-
-while True:
-    color = choice(colors)
-    print(color)
-    requests.get(f'{url}{color}')
+for _ in range(10):
+    color = choice(config.colors)
+    logger.info(f"Requesting color: {color}")
+    requests.get(f'{config.url}/{color}')
     time.sleep(3)

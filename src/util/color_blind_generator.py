@@ -1,11 +1,87 @@
 from itertools import permutations
 import json
+from config import config
+
+# Test other language
+COLOR_TRANSLATIONS = {
+        "EN": {
+            "green": "green",
+            "red": "red",
+            "blue": "blue",
+            "yellow": "yellow",
+            "white": "white",
+        },
+        "EE": {
+            "green": "roheline",
+            "red": "punane",
+            "blue": "sinine",
+            "yellow": "kollane",
+            "white": "valge",
+        },
+        "NL": {
+            "green": "groen",
+            "red": "rood",
+            "blue": "blauw",
+            "yellow": "geel",
+            "white": "wit",
+        },
+        "PT": {
+            "green": "verde",
+            "red": "vermelho",
+            "blue": "azul",
+            "yellow": "amarelo",
+            "white": "branco",
+        },
+        "HU": {
+            "green": "zöld",
+            "red": "piros",
+            "blue": "kék",
+            "yellow": "sárga",
+            "white": "fehér",
+        },
+        "IT": {
+            "green": "verde",
+            "red": "rosso",
+            "blue": "blu",
+            "yellow": "giallo",
+            "white": "bianco",
+        },
+        "RO": {
+            "green": "verde",
+            "red": "roșu",
+            "blue": "albastru",
+            "yellow": "galben",
+            "white": "alb",
+        },
+        "PL": {
+            "green": "zielony",
+            "red": "czerwony",
+            "blue": "niebieski",
+            "yellow": "żółty",
+            "white": "biały",
+        },
+        "FR": {
+            "green": "vert",
+            "red": "rouge",
+            "blue": "bleu",
+            "yellow": "jaune",
+            "white": "blanc",
+        },
+        "IN": {
+            "green": "hijau",
+            "red": "merah",
+            "blue": "biru",
+            "yellow": "kuning",
+            "white": "putih",
+        }
+}
 
 
-def generate_all_combinations():
+def generate_combinations(coutry_code="EN"):
     """
     This script generates all possible combinations of
-    text, text colors and background colors for the color blind game.
+    text, text colors and background colors for the color blind game
+    for a given language.
     """
     restult = {}
     all_colors = ['red', 'blue', 'green', 'yellow', 'white']
@@ -18,17 +94,17 @@ def generate_all_combinations():
 
         for permutation in all_permutations:
 
-            text = permutation[0]
+            text = COLOR_TRANSLATIONS[coutry_code][permutation[0]]
             background_color = permutation[1]
 
             if correct_color not in restult.keys():
                 restult[correct_color] = []
 
             restult[correct_color].append([text.upper(), correct_color, background_color])
-
-    with open('color_blind_combinations.json', 'w') as f:
-        f.write(json.dumps(restult))
+    return restult
 
 
 if __name__ == "__main__":
-    generate_all_combinations()
+    result = generate_combinations()
+    with open(config.color_blind_file, 'w') as f:
+        f.write(json.dumps(result))

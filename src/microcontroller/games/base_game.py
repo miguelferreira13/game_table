@@ -1,5 +1,7 @@
-from button_led_pairs import ButtonLedPairs
+from microcontroller.button_led_pairs import ButtonLedPairs
 from logger import logger
+
+MAIN_MENU_REQUESTED = "Main menu requested"
 
 
 class BaseGame:
@@ -9,7 +11,12 @@ class BaseGame:
 
     def execute(self):
         logger.info(f"Playing {self.name}")
-        self.play()
+        try:
+            self.play()
+        except Exception as e:
+            if str(e) != MAIN_MENU_REQUESTED:
+                logger.exception(e)
+            return
         logger.info(f"{self.name} finished")
 
     def play(self):

@@ -1,0 +1,27 @@
+API:
+  PORT: 8080
+  URL: http://localhost:8080
+  WS: ws://localhost:8080/ws
+  WS_TYPE: ws
+APP:
+  COLOR_BLIND_FILE: all_combinations.json
+  BUTTON_LED_COMBINATIONS:
+    RED:
+      BUTTON_PIN: 17
+      LED_PIN: 4
+    YELLOW:
+      BUTTON_PIN: 6
+      LED_PIN: 5
+    BLUE:
+      BUTTON_PIN: 23
+      LED_PIN: 24
+    WHITE:
+      BUTTON_PIN: 25
+      LED_PIN: 16
+    GREEN:
+      BUTTON_PIN: 20
+      LED_PIN: 21
+  LONG_PRESS_DURATION: 1 # seconds
+  SPEED_INCREASE_RATE: 0.04 # seconds
+  DEFAULT_DEBOUNCE_TIME: 0.1 # seconds
+  CANCEL_PRESS_DURATION: 2.3 # seconds

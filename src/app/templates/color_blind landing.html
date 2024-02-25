@@ -1,0 +1,17 @@
+<html>
+<head>
+    <title>Sobriety Test</title>
+</head>
+<body>
+    <div">
+        <h1>You will now play color blind</h1>
+    </div>
+    <script>
+        ws = new WebSocket("ws://localhost:8000/notsober/ws");
+        ws.onmessage = function (event) {
+            document.open()
+            document.write(event.data)
+        }
+    </script>
+</body>
+</html>

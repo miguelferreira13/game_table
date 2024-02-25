@@ -1,0 +1,12 @@
+[Unit]
+Description=Game Table
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/home/beer_table/Beer_Table/.venv/bin/python /home/beer_table/Beer_Table/src/microcontroller/main.py
+WorkingDirectory=/home/beer_table/Beer_Table/
+Environment="PYTHONPATH=./src"
+
+[Install]
+WantedBy=multi-user.target

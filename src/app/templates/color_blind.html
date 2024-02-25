@@ -1,0 +1,54 @@
+<html>
+    <style>
+        @keyframes tilt-shaking {
+        0% { transform: rotate(0deg); }
+        25% { transform: rotate(5deg); }
+        50% { transform: rotate(0eg); }
+        75% { transform: rotate(-5deg); }
+        100% { transform: rotate(0deg); }
+        }
+        div {
+  animation: tilt-shaking 0.3s infinite;
+}
+        body {
+            background-color: #d8d6d6;
+            opacity: 0.8;
+        }
+        div {
+            position: absolute;
+            top:0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            border-radius: 25px;
+            border: 2px solid #5A5A5A;
+            width: 90%;
+            height: 90%;
+            background-color: {{background_color}};
+            }
+        h1 {
+            position: relative;
+            margin:auto;
+            text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+            text-align: center;
+            font-weight: 1000;
+            font-size: 12em;
+            vertical-align: middle;
+            padding: 300px 0;
+            color: {{text_color}};
+            }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<head>
+    <title>Sobriety Test</title>
+</head>
+<body>
+    <div id="mydiv">
+        <h1>{{text}}</h1>
+    </div>
+</body>
+
+<script>$('#mydiv').delay(5000).hide(0);</script> 
+
+</html>
