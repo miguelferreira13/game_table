@@ -56,8 +56,8 @@ def generate_html(text, text_color, background_color):
         </html>"""
 
 
-def landing_page(ws):
-    return f"""
+def landing_page():
+    return """
     <html>
     <head>
         <title>Sobriety Test</title>
@@ -67,7 +67,9 @@ def landing_page(ws):
             <h1>You will now play color blind</h1>
         </div>
         <script>
-            ws = new WebSocket("{ws}");
+            const hostname = window.location.hostname;
+            const port = window.location.port;
+            ws = new WebSocket(`ws://${hostname}:${port}/ws`);
             ws.onmessage = function (event) {{
                 document.open();
                 document.write(event.data);
