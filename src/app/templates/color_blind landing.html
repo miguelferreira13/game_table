@@ -7,7 +7,9 @@
         <h1>You will now play color blind</h1>
     </div>
     <script>
-        ws = new WebSocket("ws://localhost:8000/notsober/ws");
+        const hostname = window.location.hostname;
+        const port = window.location.port;
+        ws = new WebSocket(`ws://${hostname}:${port}/ws`);
         ws.onmessage = function (event) {
             document.open()
             document.write(event.data)

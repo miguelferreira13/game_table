@@ -6,6 +6,7 @@ import uvicorn
 import argparse
 from config import config
 from random import choice
+import os
 
 from color_blind_html_generator import generate_html, landing_page
 from notifier import Notifier
@@ -33,7 +34,7 @@ app.add_middleware(
 @app.get("/game_table", response_class=HTMLResponse)
 async def main_page():
 
-    return landing_page(config.ws)
+    return landing_page()
 
 
 @app.get("/game_table/{winning_color}", response_class=HTMLResponse)
@@ -82,4 +83,6 @@ if __name__ == "__main__":
     except KeyError:
         raise KeyError(f"Supported languages: {list(COLOR_TRANSLATIONS.keys())}")
 
-    uvicorn.run(app, host="0.0.0.0", port=config.port)
+    uvicorn.run(app, host="0.0.0.0", port=config.port,
+                ssl_keyfile=os.getenv("SSL_KEYFILE"),
+                ssl_certfile=os.getenv("SSL_CERTFILE"))

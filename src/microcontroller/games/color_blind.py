@@ -58,7 +58,7 @@ class ColorBlind(BaseGame):
                 self.loser = random_led
                 self.defeat()
                 # Press the defeated button for next another game
-                while not self.loser.button_state():
+                while not self.loser.button_state() and self.pairs.keep_running():
                     # raise Exception(MAIN_MENU_REQUESTED)  # Avoid too many requests to the server
                     self.pairs.debounce()
                 self.initialize()
